@@ -1,0 +1,9 @@
+Performance index for the maximum impact of the component functions from ChooseNextWaypoint
+
+CycleIndex: 0.083ms * 0.004 = 0.000332ms
+ChooseNextWaypoint: 0.300ms * 0.004 = 0.0012ms
+GetAndSetPatrolPoints: 0.006ms * 0.004 = 0.000024ms
+ReceiveExecuteAI: 0.363ms * 0.004 = 0.001452ms
+SetNextWaypoint: 0.120ms * 0.004 = 0.00048ms
+
+Total Potential Impact = 0.003488ms
