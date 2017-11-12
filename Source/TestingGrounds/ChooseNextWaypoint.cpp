@@ -7,19 +7,19 @@
 
 EBTNodeResult::Type UChooseNextWaypoint::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
+	//TODO Protect against empty patrol routes
+
 	// Get the patrol points
 	auto ControlledPawn = OwnerComp.GetAIOwner()->GetPawn();
 	auto PatrollingGuard = Cast<APatrollingGuard>(ControlledPawn);
 	auto PatrolPoints = PatrollingGuard->PatrolPoints_CPP;
 
-	// TODO Set next waypoint
-
-	// TODO Cycle index
-
-	// TODO Remove below diagnostic code log
+	// Set next waypoint
 	UBlackboardComponent* BlackboardComp = OwnerComp.GetBlackboardComponent();
 	auto Index = BlackboardComp->GetValueAsInt(IndexKey.SelectedKeyName);
-	UE_LOG(LogTemp, Warning, TEXT("Waypoint index: %i"), Index);
+	BlackboardComp->SetValueAsObject(WaypointKey.SelectedKeyName, PatrolPoints[Index]);
+	
+	// TODO Cycle index
 	
 	return EBTNodeResult::Succeeded;
 
