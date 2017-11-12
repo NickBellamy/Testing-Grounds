@@ -9,21 +9,20 @@ EBTNodeResult::Type UChooseNextWaypoint::ExecuteTask(UBehaviorTreeComponent& Own
 {
 	//TODO Protect against empty patrol routes
 
-	// Get the patrol points
-	auto ControlledPawn = OwnerComp.GetAIOwner()->GetPawn();
-	auto PatrollingGuard = Cast<APatrollingGuard>(ControlledPawn);
-	auto PatrolPoints = PatrollingGuard->PatrolPoints_CPP;
+	// Get the patrol points and set as local array variable
+	APawn* ControlledPawn = OwnerComp.GetAIOwner()->GetPawn();
+	APatrollingGuard* PatrollingGuard = Cast<APatrollingGuard>(ControlledPawn);
+	TArray<AActor*> PatrolPoints = PatrollingGuard->PatrolPoints_CPP;
 
-	// Set next waypoint
+	// Set waypoint of the current Index
 	UBlackboardComponent* BlackboardComp = OwnerComp.GetBlackboardComponent();
-	auto Index = BlackboardComp->GetValueAsInt(IndexKey.SelectedKeyName);
-	BlackboardComp->SetValueAsObject(WaypointKey.SelectedKeyName, PatrolPoints[Index]);
+	int32 Index = BlackboardComp->GetValueAsInt(IndexKey.SelectedKeyName);	// Gets current index from IndexKey, initial value will be 0
+	BlackboardComp->SetValueAsObject(WaypointKey.SelectedKeyName, PatrolPoints[Index]);	// Sets NextWaypoint as the object at this index
 	
 	// Cycle index
-	auto NewIndex = ++Index % PatrolPoints.Num();
-	BlackboardComp->SetValueAsInt(IndexKey.SelectedKeyName, NewIndex);
+	int32 NewIndex = ++Index % PatrolPoints.Num();	// Modulus used so NewIndex will always be between 0 and size of patrol points -1
+	BlackboardComp->SetValueAsInt(IndexKey.SelectedKeyName, NewIndex);	// Sets NewIndex value
 	
-
 	return EBTNodeResult::Succeeded;
 
 }
