@@ -3,7 +3,7 @@
 #include "ChooseNextWaypoint.h"
 #include "AIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "PatrollingGuard.h"	// TODO Remove coupling
+#include "PatrolRoute.h"
 
 EBTNodeResult::Type UChooseNextWaypoint::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
@@ -11,8 +11,8 @@ EBTNodeResult::Type UChooseNextWaypoint::ExecuteTask(UBehaviorTreeComponent& Own
 
 	// Get the patrol points and set as local array variable
 	APawn* ControlledPawn = OwnerComp.GetAIOwner()->GetPawn();
-	APatrollingGuard* PatrollingGuard = Cast<APatrollingGuard>(ControlledPawn);
-	TArray<AActor*> PatrolPoints = PatrollingGuard->PatrolPoints_CPP;
+	UPatrolRoute* PatrolRouteComponent = ControlledPawn->FindComponentByClass<class UPatrolRoute>();
+	TArray<AActor*> PatrolPoints = PatrolRouteComponent->PatrolPoints_CPP;
 
 	// Set waypoint of the current Index
 	UBlackboardComponent* BlackboardComp = OwnerComp.GetBlackboardComponent();
