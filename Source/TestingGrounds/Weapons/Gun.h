@@ -66,7 +66,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	class UAnimMontage* FireAnimation;
 
+	/** Animation Instance of the character */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-		class UAnimInstance* AnimInstance;
+	class UAnimInstance* AnimInstance;
 	
 };

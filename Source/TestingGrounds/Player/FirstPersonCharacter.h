@@ -36,6 +36,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	// TODO Delete or move GunOffset to the Gun class (if needed)
 	/** Gun muzzle's offset from the characters location */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	FVector GunOffset;
@@ -71,7 +72,7 @@ protected:
 		bool bMoved;
 	};
 	void BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
-	void EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
+	void EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location); 
 	void TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location);
 	TouchData	TouchItem;
 	

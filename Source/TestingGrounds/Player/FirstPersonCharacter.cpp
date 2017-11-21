@@ -37,6 +37,7 @@ AFirstPersonCharacter::AFirstPersonCharacter()
 	Mesh1P->RelativeRotation = FRotator(1.9f, -19.19f, 5.2f);
 	Mesh1P->RelativeLocation = FVector(-0.5f, -4.4f, -155.7f);
 
+	// TODO Delete or move GunOffset to the Gun class (if needed)
 	// Default offset from the character location for projectiles to spawn
 	GunOffset = FVector(100.0f, 0.0f, 10.0f);
 }
@@ -46,20 +47,9 @@ void AFirstPersonCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
+	// TODO Attach gun to character mesh component
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
 	//FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
-
-	// Show or hide the two versions of the gun based on whether or not we're using motion controllers.
-	//if (bUsingMotionControllers)
-	//{
-	//	VR_Gun->SetHiddenInGame(false, true);
-	//	Mesh1P->SetHiddenInGame(true, true);
-	//}
-	//else
-	//{
-	//	VR_Gun->SetHiddenInGame(true, true);
-	//	Mesh1P->SetHiddenInGame(false, true);
-	//}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -74,6 +64,7 @@ void AFirstPersonCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
+	// TODO Bind OnFire() from the Gun class
 	// Bind fire event
 	// PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AFirstPersonCharacter::OnFire);
 
@@ -120,6 +111,7 @@ void AFirstPersonCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const 
 	}
 	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
 	{
+		// TODO Call OnFire() from the Gun class
 		// OnFire();
 	}
 	TouchItem.bIsPressed = false;

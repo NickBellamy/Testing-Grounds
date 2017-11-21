@@ -18,6 +18,7 @@ AGun::AGun()
 	FP_Gun->SetOnlyOwnerSee(true);			// only the owning player will see this mesh
 	FP_Gun->bCastDynamicShadow = false;
 	FP_Gun->CastShadow = false;
+	// TODO Get Character Mesh
 	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
 	FP_Gun->SetupAttachment(RootComponent);
 
@@ -59,6 +60,19 @@ void AGun::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	// Show or hide the two versions of the gun based on whether or not we're using motion controllers.
+	if (bUsingMotionControllers)
+	{
+		VR_Gun->SetHiddenInGame(false, true);
+		// TODO Get Character Mesh
+		// Mesh1P->SetHiddenInGame(true, true);
+	}
+	else
+	{
+		VR_Gun->SetHiddenInGame(true, true);
+		// TODO Get Character Mesh
+		// Mesh1P->SetHiddenInGame(false, true);
+	}
 }
 
 // Called every frame
