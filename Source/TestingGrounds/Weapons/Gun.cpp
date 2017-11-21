@@ -5,7 +5,6 @@
 #include "BallProjectile.h"
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
-// TODO Why is #include "Components/SkeletalMeshComponent.h" not needed?
 
 
 // Sets default values
