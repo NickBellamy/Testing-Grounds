@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "FirstPersonCharacter.generated.h"
 
+class AGun;
 class UInputComponent;
 
 UCLASS(config=Game)
@@ -40,6 +41,9 @@ public:
 	/** Gun muzzle's offset from the characters location */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	FVector GunOffset;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	TSubclassOf<AGun> GunBlueprint;
 
 protected:
 	/** Resets HMD orientation and position in VR. */
@@ -95,5 +99,7 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+private:
+	AGun* Gun;
 };
 
