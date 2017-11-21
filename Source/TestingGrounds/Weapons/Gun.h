@@ -10,7 +10,42 @@ UCLASS()
 class TESTINGGROUNDS_API AGun : public AActor
 {
 	GENERATED_BODY()
-	
+
+public:
+	// Sets default values for this actor's properties
+	AGun();
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	/** Projectile class to spawn */
+	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+	TSubclassOf<class ABallProjectile> ProjectileClass;
+
+	/** Whether to use motion controller location for aiming. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	uint32 bUsingMotionControllers : 1;
+
+	/** Sound to play each time we fire */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	class USoundBase* FireSound;
+
+	/** AnimMontage to play each time we fire */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	class UAnimMontage* FireAnimation;
+
+	/** Animation Instance of the character */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	class UAnimInstance* AnimInstance;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+	/** Fires a projectile. */
+	void OnFire();
+
+private:
 	/** Gun mesh: 1st person view (seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	class USkeletalMeshComponent* FP_Gun;
@@ -34,40 +69,5 @@ class TESTINGGROUNDS_API AGun : public AActor
 	/** Motion controller (left hand) */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UMotionControllerComponent* L_MotionController;
-
-public:	
-	// Sets default values for this actor's properties
-	AGun();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	/** Fires a projectile. */
-	void OnFire();
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	/** Projectile class to spawn */
-	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-	TSubclassOf<class ABallProjectile> ProjectileClass;
-
-	/** Whether to use motion controller location for aiming. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	uint32 bUsingMotionControllers : 1;
-
-	/** Sound to play each time we fire */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class USoundBase* FireSound;
-
-	/** AnimMontage to play each time we fire */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class UAnimMontage* FireAnimation;
-
-	/** Animation Instance of the character */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class UAnimInstance* AnimInstance;
 	
 };
