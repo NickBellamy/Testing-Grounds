@@ -57,8 +57,11 @@ void AFirstPersonCharacter::BeginPlay()
 		return;
 	}
 	
-	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
+	// Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
 	Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+
+	// Set Gun's AnimInstance to the same AnimInstance as defined in the Mesh1P
+	Gun->AnimInstance = Mesh1P->GetAnimInstance();
 
 	// Bind fire event
 	// Called in the BeginPlay() method rather than from SetupPlayerInputComponent because when SetupPlayerInputComponent
