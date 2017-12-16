@@ -46,7 +46,7 @@ void AMannequin::BeginPlay()
 	if (InputComponent != NULL)
 	{
 		// Bind Fire action to Fire method
-		InputComponent->BindAction("Fire", IE_Pressed, this, &AMannequin::Fire);
+		InputComponent->BindAction("Fire", IE_Pressed, this, &AMannequin::PullTrigger);
 	}
 }
 
@@ -64,7 +64,7 @@ void AMannequin::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 }
 
-void AMannequin::Fire()
+void AMannequin::PullTrigger()
 {
 	Gun->OnFire();
 }
