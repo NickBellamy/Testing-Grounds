@@ -35,8 +35,7 @@ public:
 	class UAnimMontage* FireAnimation;
 
 	/** Animation Instance of the character */
-	// TODO Currently set in FirstPersonCharacter, does this still need to be Blueprint accessible?
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	UPROPERTY()
 	class UAnimInstance* AnimInstance;
 
 	/** Fires a projectile. */
