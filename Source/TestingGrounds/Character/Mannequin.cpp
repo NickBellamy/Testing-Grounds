@@ -33,7 +33,7 @@ AMannequin::AMannequin()
 void AMannequin::BeginPlay()
 {
 	Super::BeginPlay();
-	if (GunBlueprint == NULL)
+	if (GunBlueprint == nullptr)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Gun blueprint missing."));
 		return;
@@ -49,10 +49,12 @@ void AMannequin::BeginPlay()
 		// Attach gun to Mesh3P
 		Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint")); //Attach gun mesh component to Skeleton, doing it here because the skelton is not yet created in the constructor
 	}
-	Gun->AnimInstance = GetMesh()->GetAnimInstance();
+
+	Gun->AnimInstance1P = Mesh1P->GetAnimInstance();
+	Gun->AnimInstance3P = GetMesh()->GetAnimInstance();
 
 	// If character is possessed by a player (InputComponent is not null)...
-	if (InputComponent != NULL)
+	if (InputComponent != nullptr)
 	{
 		// Bind Fire action to Fire method
 		InputComponent->BindAction("Fire", IE_Pressed, this, &AMannequin::PullTrigger);

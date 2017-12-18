@@ -61,7 +61,7 @@ void AFirstPersonCharacter::BeginPlay()
 	Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 
 	// Set Gun's AnimInstance to the same AnimInstance as defined in the Mesh1P
-	Gun->AnimInstance = Mesh1P->GetAnimInstance();
+	Gun->AnimInstance1P = Mesh1P->GetAnimInstance();
 
 	// Bind fire event
 	// Called in the BeginPlay() method rather than from SetupPlayerInputComponent because when SetupPlayerInputComponent
