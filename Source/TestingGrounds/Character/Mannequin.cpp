@@ -73,6 +73,19 @@ void AMannequin::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 }
 
+void AMannequin::UnPossessed()
+{
+	Super::UnPossessed();
+
+	// Unpossessed called before BeginPlay at some point, so nullptr protection needed	
+	if (Gun != nullptr)
+	{
+		// Attach gun to Mesh3P on death
+		Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+	}
+
+}
+
 void AMannequin::PullTrigger()
 {
 	Gun->OnFire();
