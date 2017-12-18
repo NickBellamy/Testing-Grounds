@@ -14,18 +14,19 @@ ATile::ATile()
 }
 
 // Spawn a number of instances of specified actors (ToSpawn) between MinSpawn and MaxSpawn
-void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius)
+void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius, float MinScale, float MaxScale)
 {
 	// Calculate random number of actors to spawn
 	int32 NumberToSpawn = FMath::RandRange(MinSpawn, MaxSpawn);
 	for (size_t i = 0; i < NumberToSpawn; i++)
 	{
 		FVector SpawnPoint;
-		bool isFound = FindEmptyLocation(SpawnPoint, Radius);
+		float RandomScale = FMath::RandRange(MinScale, MaxScale);
+		bool isFound = FindEmptyLocation(SpawnPoint, Radius * RandomScale);
 		if (isFound)
 		{
 			float RandomRotation = FMath::RandRange(-180.0f, 180.0f);
-			PlaceActor(ToSpawn, SpawnPoint, RandomRotation);
+			PlaceActor(ToSpawn, SpawnPoint, RandomRotation, RandomScale);
 		}
 	}
 }
@@ -50,7 +51,7 @@ bool ATile::FindEmptyLocation(FVector& OutLocation, float Radius)
 	return false;
 }
 
-void ATile::PlaceActor(TSubclassOf<AActor> ToSpawn, FVector SpawnPoint, float Rotation)
+void ATile::PlaceActor(TSubclassOf<AActor> ToSpawn, FVector SpawnPoint, float Rotation, float Scale)
 {
 	// Spawn actor
 	AActor* Spawned = GetWorld()->SpawnActor<AActor>(ToSpawn);
@@ -58,6 +59,8 @@ void ATile::PlaceActor(TSubclassOf<AActor> ToSpawn, FVector SpawnPoint, float Ro
 	Spawned->SetActorRelativeLocation(SpawnPoint);
 	// Set Actor Rotation
 	Spawned->SetActorRotation(FRotator(0, Rotation, 0));
+	// Set Actor Rotation
+	Spawned->SetActorScale3D(FVector(Scale));
 	// Attach spawned object to the floor
 	Spawned->AttachToActor(this, FAttachmentTransformRules(EAttachmentRule::KeepRelative, false));
 }
