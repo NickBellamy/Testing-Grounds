@@ -2,6 +2,7 @@
 
 #include "Tile.h"
 #include "ActorPool.h"
+#include "AI/Navigation/NavigationSystem.h"
 #include "Engine/World.h"
 
 
@@ -45,6 +46,9 @@ void ATile::PositionNavMeshBoundsVolume()
 
 	// Set location of NavMeshBoundsVolume to the location of the current tile
 	NavMeshBoundsVolume->SetActorLocation(GetActorLocation());
+
+	// Rebuild NavMesh
+	GetWorld()->GetNavigationSystem()->Build();
 }
 
 // Spawn a number of instances of specified actors (ToSpawn) between MinSpawn and MaxSpawn
