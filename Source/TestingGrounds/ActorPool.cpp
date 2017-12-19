@@ -13,11 +13,8 @@ UActorPool::UActorPool()
 
 AActor* UActorPool::Checkout()
 {
-	// TODO Remove diagnostic log
-	UE_LOG(LogTemp, Warning, TEXT("[%s] Checkout"), *GetName());
-	
-	// TODO Write logic to checkout Actor
-	return nullptr;
+	// If there are no NavMeshBoundsVolumes in Pool return nullptr, else return a NavMeshBoundsVolume
+	return Pool.Num() == 0 ? nullptr : Pool.Pop();
 }
 
 void UActorPool::Return(AActor* ActorToReturn)
