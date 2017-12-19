@@ -43,4 +43,7 @@ private:
 	
 	// Reference to the Pool of Navmeshes
 	UActorPool* Pool;
+
+	// Checks out a NavMeshBoundsVolume and sets its position to that of the tile
+	void PositionNavMeshBoundsVolume();
 };

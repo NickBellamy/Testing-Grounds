@@ -20,6 +20,24 @@ void ATile::SetPool(UActorPool* InPool)
 	
 	// Set Pool
 	Pool = InPool;
+
+	PositionNavMeshBoundsVolume();
+}
+
+void ATile::PositionNavMeshBoundsVolume()
+{
+	// Checkout NavMeshBoundsVolume from pool
+	AActor* NavMeshBoundsVolume = Pool->Checkout();
+
+	// Pointer protection
+	if (NavMeshBoundsVolume == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Not enough actors in pool"));
+		return;
+	}
+
+	// Set location of NavMeshBoundsVolume to the location of the current tile
+	NavMeshBoundsVolume->SetActorLocation(GetActorLocation());
 }
 
 // Spawn a number of instances of specified actors (ToSpawn) between MinSpawn and MaxSpawn
