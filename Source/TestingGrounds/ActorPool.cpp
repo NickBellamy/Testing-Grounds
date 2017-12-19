@@ -4,24 +4,25 @@
 
 
 // Sets default values
-AActorPool::AActorPool()
+UActorPool::UActorPool()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = true;
 
 }
 
-// Called when the game starts or when spawned
-void AActorPool::BeginPlay()
+AActor* UActorPool::Checkout()
 {
-	Super::BeginPlay();
-	
+	return nullptr;
 }
 
-// Called every frame
-void AActorPool::Tick(float DeltaTime)
+void UActorPool::Return(AActor* ActorToReturn)
 {
-	Super::Tick(DeltaTime);
+
+}
+
+void UActorPool::Add(AActor* ActorToAdd)
+{
 
 }
 

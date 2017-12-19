@@ -7,22 +7,17 @@
 #include "ActorPool.generated.h"
 
 UCLASS()
-class TESTINGGROUNDS_API AActorPool : public AActor
+class TESTINGGROUNDS_API UActorPool : public UActorComponent
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AActorPool();
+	UActorPool();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	AActor* Checkout();
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
+	void Return(AActor* ActorToReturn);
 	
-	
+	void Add(AActor* ActorToAdd);
 };
