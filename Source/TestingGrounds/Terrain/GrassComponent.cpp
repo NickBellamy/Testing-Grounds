@@ -1,0 +1,45 @@
+// Copyright Nick Bellamy.
+
+#include "GrassComponent.h"
+
+
+// Sets default values for this component's properties
+UGrassComponent::UGrassComponent()
+{
+	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
+	// off to improve performance if you don't need them.
+	PrimaryComponentTick.bCanEverTick = true;
+
+	// ...
+}
+
+
+// Called when the game starts
+void UGrassComponent::BeginPlay()
+{
+	Super::BeginPlay();
+
+	SpawnGrass();
+	
+}
+
+void UGrassComponent::SpawnGrass()
+{
+	for (size_t i = 0; i < SpawnCount; i++)
+	{
+		// Set Location to random point in box
+		FVector Location = FMath::RandPointInBox(SpawningExtents);
+		// Add an instance of the mesh at the Location
+		AddInstance(FTransform(Location));
+	}
+}
+
+
+// Called every frame
+void UGrassComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	// ...
+}
+
