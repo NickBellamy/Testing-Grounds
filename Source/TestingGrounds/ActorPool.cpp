@@ -13,16 +13,17 @@ UActorPool::UActorPool()
 
 AActor* UActorPool::Checkout()
 {
+	// TODO Write logic to checkout Actor
 	return nullptr;
 }
 
 void UActorPool::Return(AActor* ActorToReturn)
 {
-
+	// TODO Write logic to return an Actor to the pool
 }
 
 void UActorPool::Add(AActor* ActorToAdd)
 {
-
+	// TODO Write logic to add an actor to the pool
 }
 
