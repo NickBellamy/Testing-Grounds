@@ -11,6 +11,10 @@ ATile::ATile()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// Set default values appropriate for current tile size
+	MinExtent = FVector(0, -2000, 0);
+	MaxExtent = FVector(4000, 2000, 0);
+
 }
 
 void ATile::SetPool(UActorPool* InPool)
@@ -61,9 +65,7 @@ void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn, int32 MaxSp
 bool ATile::FindEmptyLocation(FVector& OutLocation, float Radius)
 {
 	// Set bounds of spawn locations
-	FVector Min(0, -2000, 0);
-	FVector Max(4000, 2000, 0);
-	FBox Bounds(Min, Max);
+	FBox Bounds(MinExtent, MaxExtent);
 
 	const int MAX_ATTEMPTS = 100;
 	for (size_t i = 0; i < MAX_ATTEMPTS; i++)

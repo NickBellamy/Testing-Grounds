@@ -27,6 +27,12 @@ protected:
 	// Called before the object is destroyed
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
+	// Bounds of the tile, used to limit area in which to spawn objects
+	UPROPERTY(EditDefaultsOnly, Category = "spawning")
+	FVector MinExtent;
+	UPROPERTY(EditDefaultsOnly, Category = "spawning")
+	FVector MaxExtent;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
