@@ -36,9 +36,12 @@ void ATile::PositionNavMeshBoundsVolume()
 	// Pointer protection
 	if (NavMeshBoundsVolume == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("Not enough actors in pool"));
+		UE_LOG(LogTemp, Error, TEXT("[%s] Not enough actors in pool"), *GetName());
 		return;
 	}
+
+	// TODO Remove diagnostic log
+	UE_LOG(LogTemp, Warning, TEXT("[%s] Checked out: {%s}"), *GetName(), *NavMeshBoundsVolume->GetName());
 
 	// Set location of NavMeshBoundsVolume to the location of the current tile
 	NavMeshBoundsVolume->SetActorLocation(GetActorLocation());

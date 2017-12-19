@@ -22,7 +22,6 @@ public:
 	void Return(AActor* ActorToReturn);
 	
 	// Add an Actor to the pool
-	// TODO This logic may end up the same as Return(), so can consolidate
 	void Add(AActor* ActorToAdd);
 
 private:

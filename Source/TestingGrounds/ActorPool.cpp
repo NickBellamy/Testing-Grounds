@@ -19,29 +19,11 @@ AActor* UActorPool::Checkout()
 
 void UActorPool::Return(AActor* ActorToReturn)
 {
-	// Pointer protection
-	if (ActorToReturn == nullptr)
-	{
-		UE_LOG(LogTemp, Error, TEXT("[%s] Returned null actor."), *GetName());
-		return;
-	}
-	// TODO Remove diagnostic log
-	UE_LOG(LogTemp, Warning, TEXT("[%s] Returned: {%s}."), *GetName(), *ActorToReturn->GetName());
-
-	// TODO Write logic to return an Actor to the pool
+	Add(ActorToReturn);
 }
 
 void UActorPool::Add(AActor* ActorToAdd)
 {
-	// Pointer protection
-	if (ActorToAdd == nullptr)
-	{
-		UE_LOG(LogTemp, Error, TEXT("[%s] Added null actor."), *GetName());
-		return;
-	}
-	// TODO Remove diagnostic log
-	UE_LOG(LogTemp, Warning, TEXT("[%s] Added: {%s}."), *GetName(), *ActorToAdd->GetName());
-
-	// TODO Write logic to add an actor to the pool
+	Pool.Push(ActorToAdd);
 }
 
