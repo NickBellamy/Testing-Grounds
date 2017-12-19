@@ -1,7 +1,7 @@
 // Copyright Nick Bellamy.
 
 #include "Tile.h"
-#include "DrawDebugHelpers.h"
+#include "ActorPool.h"
 #include "Engine/World.h"
 
 
@@ -15,6 +15,10 @@ ATile::ATile()
 
 void ATile::SetPool(UActorPool* InPool)
 {
+	// TODO Remove debugging text
+	UE_LOG(LogTemp, Warning, TEXT("[%s] Setting Pool %s"), *(this->GetName()), *(InPool->GetName()));
+	
+	// Set Pool
 	Pool = InPool;
 }
 
