@@ -49,4 +49,7 @@ private:
 
 	// Checks out a NavMeshBoundsVolume and sets its position to that of the tile
 	void PositionNavMeshBoundsVolume();
+
+	// Pointer to the checked out NavMeshBoundsVolume
+	AActor* NavMeshBoundsVolume = nullptr;
 };

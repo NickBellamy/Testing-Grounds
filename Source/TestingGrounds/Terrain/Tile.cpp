@@ -27,7 +27,7 @@ void ATile::SetPool(UActorPool* InPool)
 void ATile::PositionNavMeshBoundsVolume()
 {
 	// Checkout NavMeshBoundsVolume from pool
-	AActor* NavMeshBoundsVolume = Pool->Checkout();
+	NavMeshBoundsVolume = Pool->Checkout();
 
 	// Pointer protection
 	if (NavMeshBoundsVolume == nullptr)
@@ -102,7 +102,8 @@ void ATile::BeginPlay()
 // Called before the tile is destroyed
 void ATile::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	UE_LOG(LogTemp, Warning, TEXT("[%s] EndPlay"), *GetName());
+	Pool->Return(NavMeshBoundsVolume);
+
 }
 
 // Called every frame
