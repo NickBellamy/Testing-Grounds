@@ -13,6 +13,11 @@ ATile::ATile()
 
 }
 
+void ATile::SetPool(UActorPool* InPool)
+{
+	Pool = InPool;
+}
+
 // Spawn a number of instances of specified actors (ToSpawn) between MinSpawn and MaxSpawn
 void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius, float MinScale, float MaxScale)
 {
