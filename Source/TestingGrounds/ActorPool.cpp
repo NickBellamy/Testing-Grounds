@@ -36,6 +36,15 @@ void UActorPool::Return(AActor* ActorToReturn)
 
 void UActorPool::Add(AActor* ActorToAdd)
 {
+	// Pointer protection
+	if (ActorToAdd == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("[%s] Added null actor."), *GetName());
+		return;
+	}
+	// TODO Remove diagnostic log
+	UE_LOG(LogTemp, Warning, TEXT("[%s] Added: {%s}."), *GetName(), *ActorToAdd->GetName());
+
 	// TODO Write logic to add an actor to the pool
 }
 
