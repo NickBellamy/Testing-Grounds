@@ -99,6 +99,12 @@ void ATile::BeginPlay()
 	
 }
 
+// Called before the tile is destroyed
+void ATile::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	UE_LOG(LogTemp, Warning, TEXT("[%s] EndPlay"), *GetName());
+}
+
 // Called every frame
 void ATile::Tick(float DeltaTime)
 {
