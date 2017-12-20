@@ -6,6 +6,16 @@
 #include "GameFramework/Actor.h"
 #include "Tile.generated.h"
 
+USTRUCT()
+struct FSpawnPosition
+{
+	GENERATED_USTRUCT_BODY()
+
+	FVector Location;
+	float Rotation;
+	float Scale;
+};
+
 class UActorPool;
 
 UCLASS()
@@ -49,7 +59,7 @@ private:
 	bool FindEmptyLocation(FVector& OutLocation, float Radius);
 
 	// Place an Actor on the tile
-	void PlaceActor(TSubclassOf<AActor> ToSpawn, FVector SpawnPoint, float Rotation, float Scale);
+	void PlaceActor(TSubclassOf<AActor> ToSpawn, const FSpawnPosition& SpawnPosition);
 
 	// Check to see if an actor has enough room to spawn at location without clipping
 	bool CanSpawnAtLocation(FVector Location, float Radius);
