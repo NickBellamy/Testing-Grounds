@@ -126,16 +126,14 @@ void ATile::PlaceActor(TSubclassOf<AActor> ToSpawn, const FSpawnPosition& SpawnP
 // Place AI on tile
 void ATile::PlaceActor(TSubclassOf<APawn> ToSpawn, const FSpawnPosition& SpawnPosition)
 {
+	// Actor Rotation
+	FRotator Rotation = FRotator(0, SpawnPosition.Rotation, 0);
 	// Spawn actor
-	APawn* Spawned = GetWorld()->SpawnActor<APawn>(ToSpawn);
+	APawn* Spawned = GetWorld()->SpawnActor<APawn>(ToSpawn, SpawnPosition.Location, Rotation);
 
 	// Pointer Protection
 	if (Spawned)
 	{
-		// Move actor to SpawnPoint
-		Spawned->SetActorRelativeLocation(SpawnPosition.Location);
-		// Set Actor Rotation
-		Spawned->SetActorRotation(FRotator(0, SpawnPosition.Rotation, 0));
 		// Attach spawned object to the floor
 		Spawned->AttachToActor(this, FAttachmentTransformRules(EAttachmentRule::KeepRelative, false));
 		// Spawn AI Controller
