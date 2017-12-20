@@ -56,6 +56,11 @@ public:
 	void SetPool(UActorPool* InPool);
 
 private:
+	// Checks out a NavMeshBoundsVolume and sets its position to that of the tile
+	void PositionNavMeshBoundsVolume();
+
+	TArray<FSpawnPosition> RandomSpawnPositions(int32 MinSpawn, int32 MaxSpawn, float Radius, float MinScale, float MaxScale);
+
 	bool FindEmptyLocation(FVector& OutLocation, float Radius);
 
 	// Place an Actor on the tile
@@ -66,9 +71,6 @@ private:
 	
 	// Reference to the Pool of Navmeshes
 	UActorPool* Pool;
-
-	// Checks out a NavMeshBoundsVolume and sets its position to that of the tile
-	void PositionNavMeshBoundsVolume();
 
 	// Pointer to the checked out NavMeshBoundsVolume
 	AActor* NavMeshBoundsVolume = nullptr;
