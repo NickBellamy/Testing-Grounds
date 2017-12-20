@@ -57,7 +57,9 @@ void ATile::PositionNavMeshBoundsVolume()
 // Spawn a number of instances of specified actors (ToSpawn) between MinSpawn and MaxSpawn
 void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius, float MinScale, float MaxScale)
 {
+	// Array of spawn positions
 	TArray<FSpawnPosition> SpawnPositions = RandomSpawnPositions(MinSpawn, MaxSpawn, Radius, MinScale, MaxScale);
+
 	for (FSpawnPosition SpawnPosition : SpawnPositions)
 	{
 		PlaceActor(ToSpawn, SpawnPosition);

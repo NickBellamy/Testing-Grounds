@@ -27,6 +27,7 @@ public:
 	// Sets default values for this actor's properties
 	ATile();
 
+	// Places Actors in scene
 	UFUNCTION(BlueprintCallable, Category = "Terrain")
 	void PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn = 1, int32 MaxSpawn = 1, float Radius = 500, float MinScale = 1, float MaxScale = 1);
 
@@ -59,6 +60,7 @@ private:
 	// Checks out a NavMeshBoundsVolume and sets its position to that of the tile
 	void PositionNavMeshBoundsVolume();
 
+	// An array of Spawn Positions
 	TArray<FSpawnPosition> RandomSpawnPositions(int32 MinSpawn, int32 MaxSpawn, float Radius, float MinScale, float MaxScale);
 
 	bool FindEmptyLocation(FVector& OutLocation, float Radius);
