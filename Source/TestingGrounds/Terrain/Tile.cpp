@@ -54,35 +54,9 @@ void ATile::PositionNavMeshBoundsVolume()
 	GetWorld()->GetNavigationSystem()->Build();
 }
 
-// Spawn a number of instances of specified actors (ToSpawn) between MinSpawn and MaxSpawn
-void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius, float MinScale, float MaxScale)
+template<class T>
+void ATile::RandomlyPlaceActors(TSubclassOf<T> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius, float MinScale, float MaxScale)
 {
-	// Array of spawn positions
-	TArray<FSpawnPosition> SpawnPositions = RandomSpawnPositions(MinSpawn, MaxSpawn, Radius, MinScale, MaxScale);
-
-	for (FSpawnPosition SpawnPosition : SpawnPositions)
-	{
-		PlaceActor(ToSpawn, SpawnPosition);
-	}
-}
-
-// Spawn a number of instances of specified AI Pawns between MinSpawn and MaxSpawn
-void ATile::PlaceAIPawns(TSubclassOf<APawn> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius)
-{
-	// Array of spawn positions
-	TArray<FSpawnPosition> SpawnPositions = RandomSpawnPositions(MinSpawn, MaxSpawn, Radius, 1, 1);
-
-	for (FSpawnPosition SpawnPosition : SpawnPositions)
-	{
-		PlaceAIPawn(ToSpawn, SpawnPosition);
-	}
-
-}
-
-TArray<FSpawnPosition> ATile::RandomSpawnPositions(int32 MinSpawn, int32 MaxSpawn, float Radius, float MinScale, float MaxScale)
-{
-	TArray<FSpawnPosition> SpawnPositions;
-
 	// Calculate random number of actors to spawn
 	int32 NumberToSpawn = FMath::RandRange(MinSpawn, MaxSpawn);
 	for (size_t i = 0; i < NumberToSpawn; i++)
@@ -93,11 +67,22 @@ TArray<FSpawnPosition> ATile::RandomSpawnPositions(int32 MinSpawn, int32 MaxSpaw
 		if (isFound)
 		{
 			SpawnPosition.Rotation = FMath::RandRange(-180.0f, 180.0f);
-			SpawnPositions.Add(SpawnPosition);
+			PlaceActor(ToSpawn, SpawnPosition);
 		}
 	}
+}
 
-	return SpawnPositions;
+// Spawn a number of instances of specified actors (ToSpawn) between MinSpawn and MaxSpawn
+void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius, float MinScale, float MaxScale)
+{
+	RandomlyPlaceActors(ToSpawn, MinSpawn, MaxSpawn, Radius, MinScale, MaxScale);
+}
+
+// Spawn a number of instances of specified AI Pawns between MinSpawn and MaxSpawn
+void ATile::PlaceAIPawns(TSubclassOf<APawn> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius)
+{
+	RandomlyPlaceActors(ToSpawn, MinSpawn, MaxSpawn, Radius, 1, 1);
+
 }
 
 bool ATile::FindEmptyLocation(FVector& OutLocation, float Radius)
@@ -118,34 +103,46 @@ bool ATile::FindEmptyLocation(FVector& OutLocation, float Radius)
 	return false;
 }
 
+// Place scenery on tile
 void ATile::PlaceActor(TSubclassOf<AActor> ToSpawn, const FSpawnPosition& SpawnPosition)
 {
 	// Spawn actor
 	AActor* Spawned = GetWorld()->SpawnActor<AActor>(ToSpawn);
-	// Move actor to SpawnPoint
-	Spawned->SetActorRelativeLocation(SpawnPosition.Location);
-	// Set Actor Rotation
-	Spawned->SetActorRotation(FRotator(0, SpawnPosition.Rotation, 0));
-	// Set Actor Scale
-	Spawned->SetActorScale3D(FVector(SpawnPosition.Scale));
-	// Attach spawned object to the floor
-	Spawned->AttachToActor(this, FAttachmentTransformRules(EAttachmentRule::KeepRelative, false));
+	
+	// Pointer protection
+	if (Spawned)
+	{
+		// Move actor to SpawnPoint
+		Spawned->SetActorRelativeLocation(SpawnPosition.Location);
+		// Set Actor Rotation
+		Spawned->SetActorRotation(FRotator(0, SpawnPosition.Rotation, 0));
+		// Set Actor Scale
+		Spawned->SetActorScale3D(FVector(SpawnPosition.Scale));
+		// Attach spawned object to the floor
+		Spawned->AttachToActor(this, FAttachmentTransformRules(EAttachmentRule::KeepRelative, false));
+	}
 }
 
-void ATile::PlaceAIPawn(TSubclassOf<APawn> ToSpawn, FSpawnPosition SpawnPosition)
+// Place AI on tile
+void ATile::PlaceActor(TSubclassOf<APawn> ToSpawn, const FSpawnPosition& SpawnPosition)
 {
 	// Spawn actor
 	APawn* Spawned = GetWorld()->SpawnActor<APawn>(ToSpawn);
-	// Move actor to SpawnPoint
-	Spawned->SetActorRelativeLocation(SpawnPosition.Location);
-	// Set Actor Rotation
-	Spawned->SetActorRotation(FRotator(0, SpawnPosition.Rotation, 0));
-	// Attach spawned object to the floor
-	Spawned->AttachToActor(this, FAttachmentTransformRules(EAttachmentRule::KeepRelative, false));
-	// Spawn AI Controller
-	Spawned->SpawnDefaultController();
-	// Add the "Enemy" tag
-	Spawned->Tags.Add(FName("Enemy"));
+
+	// Pointer Protection
+	if (Spawned)
+	{
+		// Move actor to SpawnPoint
+		Spawned->SetActorRelativeLocation(SpawnPosition.Location);
+		// Set Actor Rotation
+		Spawned->SetActorRotation(FRotator(0, SpawnPosition.Rotation, 0));
+		// Attach spawned object to the floor
+		Spawned->AttachToActor(this, FAttachmentTransformRules(EAttachmentRule::KeepRelative, false));
+		// Spawn AI Controller
+		Spawned->SpawnDefaultController();
+		// Add the "Enemy" tag
+		Spawned->Tags.Add(FName("Enemy"));
+	}
 }
 
 // Called when the game starts or when spawned
