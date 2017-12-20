@@ -155,6 +155,7 @@ void ATile::BeginPlay()
 // Called before the tile is destroyed
 void ATile::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+	if(Pool != nullptr && NavMeshBoundsVolume != nullptr)
 	Pool->Return(NavMeshBoundsVolume);
 
 }
