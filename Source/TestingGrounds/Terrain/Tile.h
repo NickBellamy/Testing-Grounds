@@ -28,8 +28,11 @@ public:
 	ATile();
 
 	// Places Actors in scene
-	UFUNCTION(BlueprintCallable, Category = "Terrain")
+	UFUNCTION(BlueprintCallable, Category = "Spawning")
 	void PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn = 1, int32 MaxSpawn = 1, float Radius = 500, float MinScale = 1, float MaxScale = 1);
+
+	UFUNCTION(BlueprintCallable, Category = "Spawning")
+	void PlaceAIPawns(TSubclassOf<APawn> ToSpawn, int32 MinSpawn = 1, int32 MaxSpawn = 1, float Radius = 500);
 
 protected:
 	// Called when the game starts or when spawned
@@ -67,6 +70,9 @@ private:
 
 	// Place an Actor on the tile
 	void PlaceActor(TSubclassOf<AActor> ToSpawn, const FSpawnPosition& SpawnPosition);
+
+	// Place an AI Pawn on the tile
+	void PlaceAIPawn(TSubclassOf<APawn> ToSpawn, FSpawnPosition SpawnPosition);
 
 	// Check to see if an actor has enough room to spawn at location without clipping
 	bool CanSpawnAtLocation(FVector Location, float Radius);

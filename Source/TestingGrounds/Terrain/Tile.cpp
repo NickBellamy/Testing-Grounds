@@ -66,6 +66,19 @@ void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn, int32 MaxSp
 	}
 }
 
+// Spawn a number of instances of specified AI Pawns between MinSpawn and MaxSpawn
+void ATile::PlaceAIPawns(TSubclassOf<APawn> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius)
+{
+	// Array of spawn positions
+	TArray<FSpawnPosition> SpawnPositions = RandomSpawnPositions(MinSpawn, MaxSpawn, Radius, 1, 1);
+
+	for (FSpawnPosition SpawnPosition : SpawnPositions)
+	{
+		PlaceAIPawn(ToSpawn, SpawnPosition);
+	}
+
+}
+
 TArray<FSpawnPosition> ATile::RandomSpawnPositions(int32 MinSpawn, int32 MaxSpawn, float Radius, float MinScale, float MaxScale)
 {
 	TArray<FSpawnPosition> SpawnPositions;
@@ -113,10 +126,26 @@ void ATile::PlaceActor(TSubclassOf<AActor> ToSpawn, const FSpawnPosition& SpawnP
 	Spawned->SetActorRelativeLocation(SpawnPosition.Location);
 	// Set Actor Rotation
 	Spawned->SetActorRotation(FRotator(0, SpawnPosition.Rotation, 0));
-	// Set Actor Rotation
+	// Set Actor Scale
 	Spawned->SetActorScale3D(FVector(SpawnPosition.Scale));
 	// Attach spawned object to the floor
 	Spawned->AttachToActor(this, FAttachmentTransformRules(EAttachmentRule::KeepRelative, false));
+}
+
+void ATile::PlaceAIPawn(TSubclassOf<APawn> ToSpawn, FSpawnPosition SpawnPosition)
+{
+	// Spawn actor
+	APawn* Spawned = GetWorld()->SpawnActor<APawn>(ToSpawn);
+	// Move actor to SpawnPoint
+	Spawned->SetActorRelativeLocation(SpawnPosition.Location);
+	// Set Actor Rotation
+	Spawned->SetActorRotation(FRotator(0, SpawnPosition.Rotation, 0));
+	// Attach spawned object to the floor
+	Spawned->AttachToActor(this, FAttachmentTransformRules(EAttachmentRule::KeepRelative, false));
+	// Spawn AI Controller
+	Spawned->SpawnDefaultController();
+	// Add the "Enemy" tag
+	Spawned->Tags.Add(FName("Enemy"));
 }
 
 // Called when the game starts or when spawned
