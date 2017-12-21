@@ -17,6 +17,7 @@ AActor* UActorPool::Checkout()
 	return Pool.Num() == 0 ? nullptr : Pool.Pop();
 }
 
+// Returns actor to pool, currently just calls Add()
 void UActorPool::Return(AActor* ActorToReturn)
 {
 	Add(ActorToReturn);

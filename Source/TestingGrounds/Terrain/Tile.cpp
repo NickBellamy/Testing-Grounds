@@ -57,7 +57,7 @@ void ATile::PositionNavMeshBoundsVolume()
 template<class T>
 void ATile::RandomlyPlaceActors(TSubclassOf<T> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius, float MinScale, float MaxScale)
 {
-	// Calculate random number of actors to spawn
+	// Spawns random number of actors in random positions in tile
 	int32 NumberToSpawn = FMath::RandRange(MinSpawn, MaxSpawn);
 	for (size_t i = 0; i < NumberToSpawn; i++)
 	{
@@ -90,6 +90,7 @@ bool ATile::FindEmptyLocation(FVector& OutLocation, float Radius)
 	// Set bounds of spawn locations
 	FBox Bounds(MinExtent, MaxExtent);
 
+	// TODO Expose MAX_ATTEMPTS value so the designer can change it - maybe beneficial to performance
 	const int MAX_ATTEMPTS = 100;
 	for (size_t i = 0; i < MAX_ATTEMPTS; i++)
 	{
@@ -153,11 +154,13 @@ void ATile::BeginPlay()
 // Called before the tile is destroyed
 void ATile::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+	// If there is a Pool and NavMeshBoundsVolume, then retrun NavMeshBoundsVolume to Pool
 	if(Pool != nullptr && NavMeshBoundsVolume != nullptr)
 	Pool->Return(NavMeshBoundsVolume);
 
 }
 
+// TODO Remove Tick
 // Called every frame
 void ATile::Tick(float DeltaTime)
 {
@@ -165,10 +168,13 @@ void ATile::Tick(float DeltaTime)
 
 }
 
+// Checks to see if actor can spawn in location without clipping
 bool ATile::CanSpawnAtLocation(FVector Location, float Radius)
 {
 	FHitResult HitResult;
 	FVector GlobalLocation = ActorToWorld().TransformPosition(Location);
+	// Performs static sweep by passing in same parameters for Start and End Location
+	// Has the effect of producing a sphere with Radius that checks if other objects encroach
 	bool HasHit = GetWorld()->SweepSingleByChannel(
 		HitResult,
 		GlobalLocation,
