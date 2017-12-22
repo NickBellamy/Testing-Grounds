@@ -52,9 +52,6 @@ protected:
 	FVector MaxExtent;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 	// Set the pool reference
 	UFUNCTION(BlueprintCallable, Category = "Pool")
 	void SetPool(UActorPool* InPool);

@@ -160,14 +160,6 @@ void ATile::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 }
 
-// TODO Remove Tick
-// Called every frame
-void ATile::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
 // Checks to see if actor can spawn in location without clipping
 bool ATile::CanSpawnAtLocation(FVector Location, float Radius)
 {
