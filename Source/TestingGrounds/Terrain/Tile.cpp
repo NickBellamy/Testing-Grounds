@@ -23,9 +23,6 @@ ATile::ATile()
 
 void ATile::SetPool(UActorPool* InPool)
 {
-	// TODO Remove debugging text
-	UE_LOG(LogTemp, Warning, TEXT("[%s] Setting Pool %s"), *(this->GetName()), *(InPool->GetName()));
-	
 	// Set Pool
 	Pool = InPool;
 
@@ -43,9 +40,6 @@ void ATile::PositionNavMeshBoundsVolume()
 		UE_LOG(LogTemp, Error, TEXT("[%s] Not enough actors in pool"), *GetName());
 		return;
 	}
-
-	// TODO Remove diagnostic log
-	UE_LOG(LogTemp, Warning, TEXT("[%s] Checked out: {%s}"), *GetName(), *NavMeshBoundsVolume->GetName());
 
 	// Set location of NavMeshBoundsVolume to the location of the current tile
 	NavMeshBoundsVolume->SetActorLocation(GetActorLocation() + NavigationBoundsOffset);

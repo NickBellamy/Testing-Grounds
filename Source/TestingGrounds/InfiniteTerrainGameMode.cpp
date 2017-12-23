@@ -24,8 +24,5 @@ void AInfiniteTerrainGameMode::PopulateBoundsVolumePool()
 
 void AInfiniteTerrainGameMode::AddToPool(ANavMeshBoundsVolume* VolumeToAdd)
 {
-	// TODO Remove diadnostic log
-	UE_LOG(LogTemp, Warning, TEXT("Found Actor: %s"), *VolumeToAdd->GetName());
-
 	NavMeshBoundsVolumePool->Add(VolumeToAdd);
 }
