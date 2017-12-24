@@ -18,8 +18,6 @@ AGun::AGun()
 	FP_Gun->SetOnlyOwnerSee(false);			// if true, only the owning player will see this mesh
 	FP_Gun->bCastDynamicShadow = false;
 	FP_Gun->CastShadow = false;
-	// TODO Get Character Mesh
-	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
 	FP_Gun->SetupAttachment(RootComponent);
 
 	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
@@ -64,14 +62,10 @@ void AGun::BeginPlay()
 	if (bUsingMotionControllers)
 	{
 		VR_Gun->SetHiddenInGame(false, true);
-		// TODO Get Character Mesh
-		// Mesh1P->SetHiddenInGame(true, true);
 	}
 	else
 	{
 		VR_Gun->SetHiddenInGame(true, true);
-		// TODO Get Character Mesh
-		// Mesh1P->SetHiddenInGame(false, true);
 	}
 }
 

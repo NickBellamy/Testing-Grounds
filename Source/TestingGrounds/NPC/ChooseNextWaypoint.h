@@ -12,7 +12,6 @@
 UCLASS()
 class TESTINGGROUNDS_API UChooseNextWaypoint : public UBTTaskNode
 {
-	// TODO AIModule and GameplayTasks were added to TestingGrounds.Build.cs "to make it work".
 	// Once ths class is complete, remove them and see if it still compiles, and look into why they may be necessary.
 	GENERATED_BODY()
 
