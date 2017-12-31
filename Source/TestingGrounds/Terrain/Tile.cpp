@@ -67,15 +67,15 @@ void ATile::RandomlyPlaceActors(TSubclassOf<T> ToSpawn, int32 MinSpawn, int32 Ma
 }
 
 // Spawn a number of instances of specified actors (ToSpawn) between MinSpawn and MaxSpawn
-void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius, float MinScale, float MaxScale)
+void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, FSpawnInfo SpawnInfo)
 {
-	RandomlyPlaceActors(ToSpawn, MinSpawn, MaxSpawn, Radius, MinScale, MaxScale);
+	RandomlyPlaceActors(ToSpawn, SpawnInfo.MinSpawn, SpawnInfo.MaxSpawn, SpawnInfo.Radius, SpawnInfo.MinScale, SpawnInfo.MaxScale);
 }
 
 // Spawn a number of instances of specified AI Pawns between MinSpawn and MaxSpawn
-void ATile::PlaceAIPawns(TSubclassOf<APawn> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius)
+void ATile::PlaceAIPawns(TSubclassOf<APawn> ToSpawn, FSpawnInfo SpawnInfo)
 {
-	RandomlyPlaceActors(ToSpawn, MinSpawn, MaxSpawn, Radius, 1, 1);
+	RandomlyPlaceActors(ToSpawn, SpawnInfo.MinSpawn, SpawnInfo.MaxSpawn, SpawnInfo.Radius, SpawnInfo.MinScale, SpawnInfo.MaxScale);
 
 }
 

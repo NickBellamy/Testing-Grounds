@@ -16,6 +16,24 @@ struct FSpawnPosition
 	float Scale;
 };
 
+USTRUCT(BlueprintType)
+struct FSpawnInfo
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(BlueprintReadWrite, Category = "Spawning")
+	int32 MinSpawn = 1;
+	UPROPERTY(BlueprintReadWrite, Category = "Spawning")
+	int32 MaxSpawn = 1;
+	UPROPERTY(BlueprintReadWrite, Category = "Spawning")
+	float Radius = 500;
+	UPROPERTY(BlueprintReadWrite, Category = "Spawning")
+	float MinScale = 1;
+	UPROPERTY(BlueprintReadWrite, Category = "Spawning")
+	float MaxScale = 1;
+};
+
+
 class UActorPool;
 
 UCLASS()
@@ -29,10 +47,10 @@ public:
 
 	// Places Actors in scene
 	UFUNCTION(BlueprintCallable, Category = "Spawning")
-	void PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn = 1, int32 MaxSpawn = 1, float Radius = 500, float MinScale = 1, float MaxScale = 1);
+	void PlaceActors(TSubclassOf<AActor> ToSpawn, FSpawnInfo SpawnInfo);
 
 	UFUNCTION(BlueprintCallable, Category = "Spawning")
-	void PlaceAIPawns(TSubclassOf<APawn> ToSpawn, int32 MinSpawn = 1, int32 MaxSpawn = 1, float Radius = 500);
+	void PlaceAIPawns(TSubclassOf<APawn> ToSpawn, FSpawnInfo SpawnInfo);
 
 protected:
 	// Called when the game starts or when spawned
