@@ -48,8 +48,11 @@ protected:
 	// Bounds of the tile, used to limit area in which to spawn objects
 	UPROPERTY(EditDefaultsOnly, Category = "Spawning")
 	FVector MinExtent;
-	UPROPERTY(EditDefaultsOnly, Category = "spawning")
+	UPROPERTY(EditDefaultsOnly, Category = "Spawning")
 	FVector MaxExtent;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Spawning")
+	int MaxSpawnAttempts = 100;
 
 public:	
 	// Set the pool reference
@@ -80,4 +83,5 @@ private:
 
 	// Pointer to the checked out NavMeshBoundsVolume
 	AActor* NavMeshBoundsVolume = nullptr;
+
 };

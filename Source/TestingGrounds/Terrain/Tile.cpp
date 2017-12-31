@@ -84,9 +84,8 @@ bool ATile::FindEmptyLocation(FVector& OutLocation, float Radius)
 	// Set bounds of spawn locations
 	FBox Bounds(MinExtent, MaxExtent);
 
-	// Creates a candiadate spawn point - attempts to generate a valid spawn point up to MAX_ATTEMPTS tries
-	const int MAX_ATTEMPTS = 100;
-	for (size_t i = 0; i < MAX_ATTEMPTS; i++)
+	// Creates a candiadate spawn point - attempts to generate a valid spawn point up to MaxSpawnAttempts tries
+	for (size_t i = 0; i < MaxSpawnAttempts; i++)
 	{
 		FVector CandidatePoint = FMath::RandPointInBox(Bounds);
 		if (CanSpawnAtLocation(CandidatePoint, Radius))
